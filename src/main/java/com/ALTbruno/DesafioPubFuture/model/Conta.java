@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "TB_CONTAS")
@@ -22,16 +22,15 @@ public class Conta {
 	private String numeroConta;
 
 	@NotNull
-	@Size(max = 5)
+	@Size(min = 8, max = 8)
 	private String tipoConta;
 
 	@NotNull
-	@Size(max = 5)
 	private BigDecimal saldoConta;
 
 	@NotNull
-	@Size(min = 8, max = 8)
-	private String instituicaoFinanceira;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private InstituicaoFinanceira instituicaoFinanceira;
 
 
 	public Integer getIdConta() {
@@ -74,11 +73,11 @@ public class Conta {
 		this.saldoConta = saldoConta;
 	}
 
-	public String getInstituicaoFinanceira() {
+	public InstituicaoFinanceira getInstituicaoFinanceira() {
 		return instituicaoFinanceira;
 	}
 
-	public void setInstituicaoFinanceira(String instituicaoFinanceira) {
+	public void setInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira) {
 		this.instituicaoFinanceira = instituicaoFinanceira;
 	}
 
