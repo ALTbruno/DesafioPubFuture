@@ -1,7 +1,6 @@
 package com.ALTbruno.DesafioPubFuture.controller;
 
 import com.ALTbruno.DesafioPubFuture.model.Despesa;
-import com.ALTbruno.DesafioPubFuture.model.Receita;
 import com.ALTbruno.DesafioPubFuture.repository.ContaRepository;
 import com.ALTbruno.DesafioPubFuture.repository.DespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +70,11 @@ public class DespesaController {
 	@GetMapping("/{idDespesa}")
 	private  ResponseEntity<Optional<Despesa>> listarDespesaPeloId(@PathVariable Integer idDespesa) {
 		return ResponseEntity.ok(despesaRepository.findById(idDespesa));
+	}
+
+	@GetMapping("/tipo/{tipoDespesa}")
+	private ResponseEntity<List<Despesa>> listarDespesasPeloTipo(@PathVariable String tipoDespesa) {
+		return ResponseEntity.ok(despesaRepository.findByTipoDespesa(tipoDespesa));
 	}
 
 	@DeleteMapping("/{idDespesa}")
