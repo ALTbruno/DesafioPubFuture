@@ -1,0 +1,16 @@
+
+
+.card .list-group .btn-group .btn {
+	width: 125px;
+}
+
+#listaContas {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.card {
+	margin: 10px;
+}
