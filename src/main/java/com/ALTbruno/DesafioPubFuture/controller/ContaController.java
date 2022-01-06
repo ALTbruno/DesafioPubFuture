@@ -27,7 +27,14 @@ public class ContaController {
 
 	@PostMapping
 	private ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
+		if(instituicaoFinanceiraRepository.findByCodigoInstituicaoFinanceira(conta.getInstituicaoFinanceira().getCodigoInstituicaoFinanceira()).isPresent()) {
+
+			InstituicaoFinanceira i = instituicaoFinanceiraRepository.getByCodigoInstituicaoFinanceira(conta.getInstituicaoFinanceira().getCodigoInstituicaoFinanceira());
+
+			conta.setInstituicaoFinanceira(i);
 			return ResponseEntity.status(HttpStatus.CREATED).body(contaRepository.save(conta));
+		} else
+		return ResponseEntity.status(HttpStatus.CREATED).body(contaRepository.save(conta));
 	}
 
 	@PutMapping("/{idConta}")
