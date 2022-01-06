@@ -74,6 +74,11 @@ public class ReceitaController {
 		return ResponseEntity.ok(receitaRepository.findById(idReceita));
 	}
 
+	@GetMapping("/tipo/{tipoReceita}")
+	private ResponseEntity<List<Receita>> listarReceitasPeloTipo(@PathVariable String tipoReceita) {
+		return ResponseEntity.ok(receitaRepository.findByTipoReceita(tipoReceita));
+	}
+
 	@DeleteMapping("/{idReceita}")
 	private void removerReceitaPeloId(@PathVariable Integer idReceita) {
 		receitaRepository.deleteById(idReceita);
