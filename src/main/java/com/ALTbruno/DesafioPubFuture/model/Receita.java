@@ -29,7 +29,6 @@ public class Receita {
 	@Size(max = 10)
 	private String tipoReceita;
 
-	@NotNull
 	@Size(max = 255)
 	private String descricaoReceita;
 
