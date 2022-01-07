@@ -6,7 +6,7 @@ const url = 'http://localhost:8080/contas';
 let cardConta = '';
 let home = '';
 
-var renderContas = (contas) => {
+const renderContas = (contas) => {
 
 	contas.forEach(conta =>{
 		cardConta += 
@@ -27,32 +27,36 @@ var renderContas = (contas) => {
 					`;
 	});
 	listaContas.innerHTML = cardConta;
-}
+};
+
+const renderHome = () => {
+
+	home +=
+			`
+			<div class="card text-center card border-info mb-3">
+				<div class="card-header">
+					Olá!
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">Seja bem-vindo ao seu Gerenciador Financeiro.</h5>
+					<p class="card-text">Não identifiquei contas cadastradas. Para começar o organizar suas finanças é necessário que cadastre pelo menos uma conta clicando no botão abaixo.</p>
+					<a href="#" class="btn btn-primary btn-lg adicionarConta">Adicionar Conta</a>
+				</div>
+			</div>
+			`;
+			section.innerHTML = home;
+};
 
 async function getContas() {
 	try {
+
 		const response = await fetch(url);
-		
 		const data = await response.json();
 
 		if(data.length > 0) {
 			renderContas(data);
 		} else {
-
-			home +=
-					`
-					<div class="card text-center card border-info mb-3">
-						<div class="card-header">
-							Olá!
-						</div>
-						<div class="card-body">
-							<h5 class="card-title">Seja bem-vindo ao seu Gerenciador Financeiro.</h5>
-							<p class="card-text">Não identifiquei contas cadastradas. Para começar o organizar suas finanças é necessário que cadastre pelo menos uma conta clicando no botão abaixo.</p>
-							<a href="#" class="btn btn-primary btn-lg adicionarConta">Adicionar Conta</a>
-						</div>
-					</div>
-					`;
-					section.innerHTML = home;
+			renderHome();
 		}
 
 	} catch (error) {
