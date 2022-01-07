@@ -1,13 +1,15 @@
 const listaContas = document.getElementById('listaContas');
+const section = document.querySelector('section');
 
 const url = 'http://localhost:8080/contas';
 
-let output = '';
+let cardConta = '';
+let home = '';
 
 var renderContas = (contas) => {
 
 	contas.forEach(conta =>{
-		output += 
+		cardConta += 
 					`
 					<div class="card" data-id=${conta.idConta} style="width: 18rem;">
 						<div class="card-header">Conta ${conta.instituicaoFinanceira.nomeInstituicaoFinanceira}</div>
@@ -24,7 +26,7 @@ var renderContas = (contas) => {
 					</div>
 					`;
 	});
-	listaContas.innerHTML = output;
+	listaContas.innerHTML = cardConta;
 }
 
 async function getContas() {
@@ -33,7 +35,25 @@ async function getContas() {
 		
 		const data = await response.json();
 
-		renderContas(data);
+		if(data.length > 0) {
+			renderContas(data);
+		} else {
+
+			home +=
+					`
+					<div class="card text-center card border-info mb-3">
+						<div class="card-header">
+							Olá!
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">Seja bem-vindo ao seu Gerenciador Financeiro.</h5>
+							<p class="card-text">Não identifiquei contas cadastradas. Para começar o organizar suas finanças é necessário que cadastre pelo menos uma conta clicando no botão abaixo.</p>
+							<a href="#" class="btn btn-primary btn-lg adicionarConta">Adicionar Conta</a>
+						</div>
+					</div>
+					`;
+					section.innerHTML = home;
+		}
 
 	} catch (error) {
 		console.log(error);
