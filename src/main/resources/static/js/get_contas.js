@@ -53,7 +53,7 @@ const renderHome = () => {
 			boasVindas.innerHTML = home;
 };
 
-
+// GET
 async function getContas() {
 	try {
 
@@ -72,6 +72,7 @@ async function getContas() {
 }
 getContas();
 
+// POST
 adicionarContaForm.addEventListener('submit', (e) => {
 
 	e.preventDefault();
