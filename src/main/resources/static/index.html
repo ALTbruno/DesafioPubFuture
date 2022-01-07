@@ -19,9 +19,57 @@
         </div>
       </nav>
     <section>
+		<!-- TELA MOSTRADA QUANDO NÃO HÁ CONTAS CADASTRADAS (vem do javascript) -->
+		<div class="boas-vindas"></div>
 
         <!-- LISTA DE CONTAS -->
         <ul class="container-fluid" id="listaContas"></ul>
+
+		<!-- MODAL ADICIONAR CONTA -->   
+		<div class="modal fade" id="adicionarContaModal" tabindex="-1" aria-labelledby="adicionarContaModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Dados da Conta</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form class="adicionar-conta-form">
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">Código da Instituição Financeira:</label>
+								<input type="text" class="form-control" id="codigoValue" required placeholder="Exemplo: 001">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">Instituição Financeira:</label>
+								<input type="text" class="form-control" id="bancoValue" required placeholder="Exemplo: Banco do Brasil">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">Agência (sem o dígito):</label>
+								<input type="text" class="form-control" id="agenciaValue" required placeholder="Exemplo: 0001">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">Conta:</label>
+								<input type="text" class="form-control" id="contaValue" required placeholder="Exemplo: 12345-6">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">Tipo da Conta:</label>
+								<input type="text" class="form-control" id="tipoValue" required placeholder="Exemplo: Carteira, Corrente, Poupança">
+							</div>
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">Saldo:</label>
+								<input type="text" class="form-control" id="saldoValue" required placeholder="Exemplo: 3000.00">
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn btn-primary" data-bs-target="#msgContaAtualizada" data-bs-toggle="modal">Salvar</button>
+								<!-- <button type="submit" class="btn btn-primary">Salvar</button> -->
+							</div>
+						</form>
+					</div>                    
+				</div>
+			</div>
+		</div>
 
 
     </section>
