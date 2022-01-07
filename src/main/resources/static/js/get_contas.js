@@ -1,7 +1,13 @@
-const listaContas = document.getElementById('listaContas');
-const section = document.querySelector('section');
-
 const url = 'http://localhost:8080/contas';
+const boasVindas = document.querySelector('.boas-vindas');
+const listaContas = document.getElementById('listaContas');
+const adicionarContaForm = document.querySelector('.adicionar-conta-form');
+let agenciaValue = document.getElementById('agenciaValue');
+let contaValue = document.getElementById('contaValue');
+let tipoValue = document.getElementById('tipoValue');
+let saldoValue = document.getElementById('saldoValue');
+let codigoValue = document.getElementById('codigoValue');
+let bancoValue = document.getElementById('bancoValue');
 
 let cardConta = '';
 let home = '';
@@ -40,28 +46,57 @@ const renderHome = () => {
 				<div class="card-body">
 					<h5 class="card-title">Seja bem-vindo ao seu Gerenciador Financeiro.</h5>
 					<p class="card-text">Não identifiquei contas cadastradas. Para começar o organizar suas finanças é necessário que cadastre pelo menos uma conta clicando no botão abaixo.</p>
-					<a href="#" class="btn btn-primary btn-lg adicionarConta">Adicionar Conta</a>
+					<a href="#" class="btn btn-primary btn-lg btnAdicionarConta" data-bs-target="#adicionarContaModal" data-bs-toggle="modal">Adicionar Conta</a>
 				</div>
 			</div>
 			`;
-			section.innerHTML = home;
+			boasVindas.innerHTML = home;
 };
+
 
 async function getContas() {
 	try {
 
 		const response = await fetch(url);
 		const data = await response.json();
-
+		
 		if(data.length > 0) {
 			renderContas(data);
 		} else {
 			renderHome();
 		}
-
+		
 	} catch (error) {
 		console.log(error);
 	}
 }
-
 getContas();
+
+adicionarContaForm.addEventListener('submit', (e) => {
+
+	e.preventDefault();
+
+	fetch(url, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			agenciaConta: agenciaValue.value,
+			numeroConta: contaValue.value,
+			tipoConta: tipoValue.value,
+			saldoConta: saldoValue.value,
+			instituicaoFinanceira: {
+				codigoInstituicaoFinanceira: codigoValue.value,
+				nomeInstituicaoFinanceira: bancoValue.value
+			}
+		})
+	})
+		.then(res => res.json())
+		.then(data => {
+			const dataArr = [];
+			dataArr.push(data);
+			renderContas(dataArr);
+		});
+		boasVindas.classList.toggle('d-none');
+});
