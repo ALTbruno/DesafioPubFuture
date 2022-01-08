@@ -19,12 +19,6 @@
 	margin: 50px 0 25px;
 }
 
-.footer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-}
-
 .b-example-divider {
     height: 3rem;
     background-color: rgba(0, 0, 0, .1);
@@ -51,4 +45,43 @@
 
 .bi-linkedin:hover {
 	fill: #0073B1;
+}
+
+.navbar {
+	padding: 8px 100px ;
+}
+
+.nav-item {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+
+.nav-item:hover, .nav-item:focus, .nav-item:active {
+  background-color: #2098D1;
+  color: white;
+}
+
+.transferir {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+
+.transferir:hover, .transferir:focus, .transferir:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
