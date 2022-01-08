@@ -2,6 +2,10 @@ const url = 'http://localhost:8080/contas';
 const boasVindas = document.querySelector('.boas-vindas');
 const listaContas = document.getElementById('listaContas');
 const adicionarContaForm = document.querySelector('.adicionar-conta-form');
+const divNavbar1 = document.querySelector('.div-navbar-1');
+const divNavbar2 = document.querySelector('.div-navbar-2');
+const divNavbar3 = document.querySelector('.div-navbar-3');
+const footer = document.querySelector('.footer');
 let agenciaValue = document.getElementById('agenciaValue');
 let contaValue = document.getElementById('contaValue');
 let tipoValue = document.getElementById('tipoValue');
@@ -40,7 +44,7 @@ const renderHome = () => {
 	home +=
 			`
 			<div class="card text-center card border-info mb-3">
-				<div class="card-header">
+				<div class="card-header h2">
 					Olá!
 				</div>
 				<div class="card-body">
@@ -50,6 +54,10 @@ const renderHome = () => {
 				</div>
 			</div>
 			`;
+			divNavbar1.classList.add('d-none');
+			divNavbar2.classList.add('d-none');
+			divNavbar3.classList.add('d-none');
+			footer.classList.add('fixed-bottom');
 			boasVindas.innerHTML = home;
 };
 
@@ -99,7 +107,10 @@ adicionarContaForm.addEventListener('submit', (e) => {
 			dataArr.push(data);
 			renderContas(dataArr);
 		});
-		boasVindas.classList.toggle('d-none');
+		divNavbar1.classList.remove('d-none');
+		divNavbar2.classList.remove('d-none');
+		divNavbar3.classList.remove('d-none');
+		boasVindas.classList.add('d-none');
 });
 
 // DELETE
