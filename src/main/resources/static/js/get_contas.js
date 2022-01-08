@@ -27,7 +27,7 @@ const renderContas = (contas) => {
 						</ul>
 						<div class="btn-group" role="group" aria-label="Caixa com botões editar e apagar">
 							<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarContaModal">Editar</button>
-							<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#apagarContaModal">Apagar</button>
+							<button class="btn btn-danger" id="apagaConta" data-bs-toggle="modal" data-bs-target="#apagarContaModal" >Apagar</button>
 						</div>
 					</div>
 					`;
@@ -100,4 +100,27 @@ adicionarContaForm.addEventListener('submit', (e) => {
 			renderContas(dataArr);
 		});
 		boasVindas.classList.toggle('d-none');
+});
+
+// DELETE
+listaContas.addEventListener('click', (e) => {
+
+	e.preventDefault();
+
+	let btnApagarClicado = e.target.id == 'apagaConta'; //colocar esse id no botao apagar
+
+	let idConta = e.target.parentElement.parentElement.dataset.id;
+
+	if(btnApagarClicado) {
+		try {		
+			fetch(`${url}/${idConta}`, {
+				method: 'DELETE',
+			})
+				.then(res => res)
+				.then(() => location.reload());
+			
+			} catch (error) {
+				console.log(error)
+			};
+	}
 });
