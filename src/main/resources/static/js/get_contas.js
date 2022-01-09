@@ -22,15 +22,15 @@ const renderContas = (contas) => {
 		cardConta += 
 					`
 					<div class="card" data-id=${conta.idConta} style="width: 18rem;">
-						<div class="card-header">Conta ${conta.instituicaoFinanceira.nomeInstituicaoFinanceira}</div>
+						<div class="card-header banco-content">Conta ${conta.instituicaoFinanceira.nomeInstituicaoFinanceira}</div>
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item">Agência: ${conta.agenciaConta}</li>
-							<li class="list-group-item">Número: ${conta.numeroConta}</li>
-							<li class="list-group-item">Tipo: ${conta.tipoConta}</li>
-							<li class="list-group-item">Saldo: ${conta.saldoConta}</li>
+							<li class="list-group-item agencia-content">Agência: ${conta.agenciaConta}</li>
+							<li class="list-group-item numero-content">Número: ${conta.numeroConta}</li>
+							<li class="list-group-item tipo-content">Tipo: ${conta.tipoConta}</li>
+							<li class="list-group-item saldo-content">Saldo: ${conta.saldoConta}</li>
 						</ul>
 						<div class="btn-group" role="group" aria-label="Caixa com botões editar e apagar">
-							<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarContaModal">Editar</button>
+							<button class="btn btn-primary" id="editaConta" data-bs-toggle="modal" data-bs-target="#adicionarContaModal">Editar</button>
 							<button class="btn btn-danger" id="apagaConta" data-bs-toggle="modal" data-bs-target="#apagarContaModal" >Apagar</button>
 						</div>
 					</div>
@@ -70,10 +70,12 @@ async function getContas() {
 		
 		if(data.length > 0) {
 			renderContas(data);
+			if(data.length < 2){
+				divNavbar3.classList.add('d-none');
+			}
 		} else {
 			renderHome();
 		}
-		
 	} catch (error) {
 		console.log(error);
 	}
@@ -106,10 +108,11 @@ adicionarContaForm.addEventListener('submit', (e) => {
 			const dataArr = [];
 			dataArr.push(data);
 			renderContas(dataArr);
-		});
+		})
+		.then(() => location.reload());
+
 		divNavbar1.classList.remove('d-none');
 		divNavbar2.classList.remove('d-none');
-		divNavbar3.classList.remove('d-none');
 		boasVindas.classList.add('d-none');
 });
 
@@ -135,3 +138,58 @@ listaContas.addEventListener('click', (e) => {
 			};
 	}
 });
+
+// PUT
+// listaContas.addEventListener('click', (e) => {
+
+// 	e.preventDefault();
+
+// 	let btnEditarClicado = e.target.id == 'editaConta'; //colocar esse id no botao editar
+
+// 	let idConta = e.target.parentElement.parentElement.dataset.id;
+
+// 	console.log(idConta)
+
+// 	if(btnEditarClicado) {
+// 		const parent = e.target.parentElement.parentElement;
+// 		console.log(parent)
+
+// 		// let codigoContent = document.querySelector(.'');
+// 		let bancoContent = document.querySelector('.banco-content').textContent;
+// 		let agenciaContent = document.querySelector('.agencia-content').textContent;
+// 		let numeroContent = document.querySelector('.numero-content').textContent;
+// 		let tipoContent = document.querySelector('.tipo-content').textContent;
+// 		let saldoContent = document.querySelector('.saldo-content').textContent;
+
+// 		// codigoValue.value = codigoContent;
+// 		bancoValue.value = bancoContent;
+// 		agenciaValue.value = agenciaContent;
+// 		contaValue.value = numeroContent;
+// 		tipoValue.value = tipoContent
+// 		saldoValue.value = saldoContent;
+
+// 		adicionarContaForm.addEventListener('submit', (e) => {
+
+// 			e.preventDefault();
+		
+// 			fetch(url, {
+// 				method: 'PUT',
+// 				headers: {
+// 					'Content-Type': 'application/json'
+// 				},
+// 				body: JSON.stringify({
+// 					agenciaConta: agenciaValue.value,
+// 					numeroConta: contaValue.value,
+// 					tipoConta: tipoValue.value,
+// 					saldoConta: saldoValue.value,
+// 					instituicaoFinanceira: {
+// 						codigoInstituicaoFinanceira: codigoValue.value,
+// 						nomeInstituicaoFinanceira: bancoValue.value
+// 					}
+// 				})
+// 			})
+// 				.then(res => res.json())
+// 				.then(() => location.reload());
+// 		});
+// 	}
+// });
