@@ -20,9 +20,11 @@ public class Receita {
 	private BigDecimal valorReceita;
 
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date dataRecebimento;
 
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date dataRecebimentoEsperado;
 
 	@NotNull
