@@ -28,8 +28,8 @@ public class Despesa {
 	private Date dataPagamentoEsperado;
 
 	@NotNull
-	@Size(max = 15)
-	private String tipoDespesa;
+	@Enumerated(value = EnumType.STRING)
+	private TipoDespesa tipoDespesa;
 
 	@ManyToOne
 	@JoinColumn(name = "id_conta")
@@ -68,11 +68,11 @@ public class Despesa {
 		this.dataPagamentoEsperado = dataPagamentoEsperado;
 	}
 
-	public String getTipoDespesa() {
+	public TipoDespesa getTipoDespesa() {
 		return tipoDespesa;
 	}
 
-	public void setTipoDespesa(String tipoDespesa) {
+	public void setTipoDespesa(TipoDespesa tipoDespesa) {
 		this.tipoDespesa = tipoDespesa;
 	}
 
@@ -83,5 +83,4 @@ public class Despesa {
 	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
-
 }

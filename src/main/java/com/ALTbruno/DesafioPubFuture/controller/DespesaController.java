@@ -1,6 +1,7 @@
 package com.ALTbruno.DesafioPubFuture.controller;
 
 import com.ALTbruno.DesafioPubFuture.model.Despesa;
+import com.ALTbruno.DesafioPubFuture.model.TipoDespesa;
 import com.ALTbruno.DesafioPubFuture.repository.ContaRepository;
 import com.ALTbruno.DesafioPubFuture.repository.DespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,7 @@ public class DespesaController {
 	}
 
 	@GetMapping("/tipo/{tipoDespesa}")
-	private ResponseEntity<List<Despesa>> listarDespesasPeloTipo(@PathVariable String tipoDespesa) {
+	private ResponseEntity<List<Despesa>> listarDespesasPeloTipo(@PathVariable TipoDespesa tipoDespesa) {
 		return ResponseEntity.ok(despesaRepository.findByTipoDespesa(tipoDespesa));
 	}
 

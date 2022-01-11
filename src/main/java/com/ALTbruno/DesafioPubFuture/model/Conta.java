@@ -25,7 +25,7 @@ public class Conta {
 
 	@NotNull
 	@Size(min = 8, max = 8)
-	private String tipoConta;
+	private TipoConta tipoConta;
 
 	@NotNull
 	private BigDecimal saldoConta;
@@ -60,11 +60,11 @@ public class Conta {
 		this.numeroConta = numeroConta;
 	}
 
-	public String getTipoConta() {
+	public TipoConta getTipoConta() {
 		return tipoConta;
 	}
 
-	public void setTipoConta(String tipoConta) {
+	public void setTipoConta(TipoConta tipoConta) {
 		this.tipoConta = tipoConta;
 	}
 

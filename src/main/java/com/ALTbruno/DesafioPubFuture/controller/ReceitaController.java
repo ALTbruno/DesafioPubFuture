@@ -1,6 +1,7 @@
 package com.ALTbruno.DesafioPubFuture.controller;
 
 import com.ALTbruno.DesafioPubFuture.model.Receita;
+import com.ALTbruno.DesafioPubFuture.model.TipoReceita;
 import com.ALTbruno.DesafioPubFuture.repository.ContaRepository;
 import com.ALTbruno.DesafioPubFuture.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class ReceitaController {
 	}
 
 	@GetMapping("/tipo/{tipoReceita}")
-	private ResponseEntity<List<Receita>> listarReceitasPeloTipo(@PathVariable String tipoReceita) {
+	private ResponseEntity<List<Receita>> listarReceitasPeloTipo(@PathVariable TipoReceita tipoReceita) {
 		return ResponseEntity.ok(receitaRepository.findByTipoReceita(tipoReceita));
 	}
 

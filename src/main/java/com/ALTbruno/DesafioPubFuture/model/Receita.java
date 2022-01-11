@@ -26,8 +26,8 @@ public class Receita {
 	private LocalDate dataRecebimentoEsperado;
 
 	@NotNull
-	@Size(max = 10)
-	private String tipoReceita;
+	@Enumerated(value = EnumType.STRING)
+	private TipoReceita tipoReceita;
 
 	@Size(max = 255)
 	private String descricaoReceita;
@@ -69,11 +69,11 @@ public class Receita {
 		this.dataRecebimentoEsperado = dataRecebimentoEsperado;
 	}
 
-	public String getTipoReceita() {
+	public TipoReceita getTipoReceita() {
 		return tipoReceita;
 	}
 
-	public void setTipoReceita(String tipoReceita) {
+	public void setTipoReceita(TipoReceita tipoReceita) {
 		this.tipoReceita = tipoReceita;
 	}
 
