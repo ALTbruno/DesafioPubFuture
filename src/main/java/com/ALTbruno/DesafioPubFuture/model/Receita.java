@@ -5,7 +5,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_RECEITAS")
@@ -20,12 +20,10 @@ public class Receita {
 	private BigDecimal valorReceita;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	private Date dataRecebimento;
+	private LocalDate dataRecebimento;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	private Date dataRecebimentoEsperado;
+	private LocalDate dataRecebimentoEsperado;
 
 	@NotNull
 	@Size(max = 10)
@@ -55,19 +53,19 @@ public class Receita {
 		this.valorReceita = valorReceita;
 	}
 
-	public Date getDataRecebimento() {
+	public LocalDate getDataRecebimento() {
 		return dataRecebimento;
 	}
 
-	public void setDataRecebimento(Date dataRecebimento) {
+	public void setDataRecebimento(LocalDate dataRecebimento) {
 		this.dataRecebimento = dataRecebimento;
 	}
 
-	public Date getDataRecebimentoEsperado() {
+	public LocalDate getDataRecebimentoEsperado() {
 		return dataRecebimentoEsperado;
 	}
 
-	public void setDataRecebimentoEsperado(Date dataRecebimentoEsperado) {
+	public void setDataRecebimentoEsperado(LocalDate dataRecebimentoEsperado) {
 		this.dataRecebimentoEsperado = dataRecebimentoEsperado;
 	}
 

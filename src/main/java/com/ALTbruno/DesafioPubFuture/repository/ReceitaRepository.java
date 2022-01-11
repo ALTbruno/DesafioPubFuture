@@ -1,6 +1,5 @@
 package com.ALTbruno.DesafioPubFuture.repository;
 
-import com.ALTbruno.DesafioPubFuture.model.Despesa;
 import com.ALTbruno.DesafioPubFuture.model.Receita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

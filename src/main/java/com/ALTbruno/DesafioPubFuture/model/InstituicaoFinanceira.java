@@ -1,8 +1,11 @@
 package com.ALTbruno.DesafioPubFuture.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_INSTITUICOESFINANCEIRAS")
@@ -19,6 +22,10 @@ public class InstituicaoFinanceira {
 	@NotNull
 	@Size(max = 75)
 	private String nomeInstituicaoFinanceira;
+
+//	@OneToMany(mappedBy = "instituicaoFinanceira", cascade = CascadeType.ALL)
+//	@JsonIgnoreProperties("instituicaoFinanceira")
+//	private List<Conta> conta;
 
 
 	public Integer getIdInstituicaoFinanceira() {

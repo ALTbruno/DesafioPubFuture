@@ -1,9 +1,12 @@
 package com.ALTbruno.DesafioPubFuture.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Entity
 @Table(name = "TB_CONTAS")
@@ -29,6 +32,7 @@ public class Conta {
 
 	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
+//	@JsonIgnoreProperties("conta")
 	private InstituicaoFinanceira instituicaoFinanceira;
 
 
