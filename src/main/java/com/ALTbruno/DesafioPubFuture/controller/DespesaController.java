@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,5 +83,10 @@ public class DespesaController {
 	@DeleteMapping("/{idDespesa}")
 	private void removerDespesaPeloId(@PathVariable Integer idDespesa) {
 		despesaRepository.deleteById(idDespesa);
+	}
+
+	@GetMapping("total")
+	private BigDecimal getTotalDespesas() {
+		return despesaRepository.totalDespesas();
 	}
 }
