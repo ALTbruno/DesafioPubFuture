@@ -89,4 +89,9 @@ public class DespesaController {
 	private BigDecimal getTotalDespesas() {
 		return despesaRepository.totalDespesas();
 	}
+
+	@GetMapping("/conta/{idConta}/total")
+	private BigDecimal totalDespesasPorConta(@PathVariable Integer idConta) {
+		return despesaRepository.getTotalDespesasPorConta(idConta);
+	}
 }

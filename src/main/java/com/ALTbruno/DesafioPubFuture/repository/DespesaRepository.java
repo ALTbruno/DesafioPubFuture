@@ -17,4 +17,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Integer> {
 	@Query("SELECT SUM(d.valorDespesa) FROM Despesa d")
 	BigDecimal totalDespesas();
 
+	@Query(value = "SELECT SUM(valor_despesa) FROM tb_despesas WHERE id_conta = ?1", nativeQuery = true)
+	BigDecimal getTotalDespesasPorConta(Integer idConta);
+
 }

@@ -91,4 +91,9 @@ public class ReceitaController {
 	private BigDecimal getTotalReceitas() {
 		return receitaRepository.totalReceitas();
 	}
+
+	@GetMapping("/conta/{idConta}/total")
+	private BigDecimal totalReceitasPorConta(@PathVariable Integer idConta) {
+		return receitaRepository.getTotalReceitasPorConta(idConta);
+	}
 }
