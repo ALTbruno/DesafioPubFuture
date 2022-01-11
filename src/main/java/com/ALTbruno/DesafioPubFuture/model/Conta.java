@@ -1,12 +1,9 @@
 package com.ALTbruno.DesafioPubFuture.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Entity
 @Table(name = "TB_CONTAS")
@@ -24,17 +21,15 @@ public class Conta {
 	private String numeroConta;
 
 	@NotNull
-	@Size(min = 8, max = 8)
+	@Enumerated(value = EnumType.STRING)
 	private TipoConta tipoConta;
 
 	@NotNull
 	private BigDecimal saldoConta;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
-//	@JsonIgnoreProperties("conta")
+	@Enumerated(value = EnumType.STRING)
 	private InstituicaoFinanceira instituicaoFinanceira;
-
 
 	public Integer getIdConta() {
 		return idConta;
@@ -83,5 +78,4 @@ public class Conta {
 	public void setInstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira) {
 		this.instituicaoFinanceira = instituicaoFinanceira;
 	}
-
 }
