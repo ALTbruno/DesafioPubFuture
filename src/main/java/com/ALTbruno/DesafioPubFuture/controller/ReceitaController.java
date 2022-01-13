@@ -5,11 +5,13 @@ import com.ALTbruno.DesafioPubFuture.model.TipoReceita;
 import com.ALTbruno.DesafioPubFuture.repository.ContaRepository;
 import com.ALTbruno.DesafioPubFuture.repository.ReceitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,5 +97,24 @@ public class ReceitaController {
 	@GetMapping("/conta/{idConta}/total")
 	private BigDecimal totalReceitasPorConta(@PathVariable Integer idConta) {
 		return receitaRepository.getTotalReceitasPorConta(idConta);
+	}
+
+	//	@GetMapping("/datainicial={dataInicial}&datafinal={dataFinal}")
+	@GetMapping("/datarecebimento/{dataInicial}/{dataFinal}")
+	List<Receita> findByDataRecebimento(
+				@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+				@PathVariable LocalDate dataInicial,
+				@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+				@PathVariable LocalDate dataFinal){
+			return receitaRepository.findAllByDataRecebimentoBetween(dataInicial, dataFinal);
+		}
+
+	@GetMapping("/datarecebimentoesperado/{dataInicial}/{dataFinal}")
+	List<Receita> findByDataRecebimentoEsperado(
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			@PathVariable LocalDate dataInicial,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			@PathVariable LocalDate dataFinal){
+		return receitaRepository.findAllByDataRecebimentoEsperadoBetween(dataInicial, dataFinal);
 	}
 }
