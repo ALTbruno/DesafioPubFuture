@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -19,5 +20,9 @@ public interface DespesaRepository extends JpaRepository<Despesa, Integer> {
 
 	@Query(value = "SELECT SUM(valor_despesa) FROM tb_despesas WHERE id_conta = ?1", nativeQuery = true)
 	BigDecimal getTotalDespesasPorConta(Integer idConta);
+
+	List<Despesa> findAllByDataPagamentoBetween(LocalDate dataInicial, LocalDate dataFinal);
+
+	List<Despesa> findAllByDataPagamentoEsperadoBetween(LocalDate dataInicial, LocalDate dataFinal);
 
 }

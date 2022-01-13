@@ -5,11 +5,13 @@ import com.ALTbruno.DesafioPubFuture.model.TipoDespesa;
 import com.ALTbruno.DesafioPubFuture.repository.ContaRepository;
 import com.ALTbruno.DesafioPubFuture.repository.DespesaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,5 +95,23 @@ public class DespesaController {
 	@GetMapping("/conta/{idConta}/total")
 	private BigDecimal totalDespesasPorConta(@PathVariable Integer idConta) {
 		return despesaRepository.getTotalDespesasPorConta(idConta);
+	}
+
+	@GetMapping("/datapagamento/{dataInicial}/{dataFinal}")
+	List<Despesa> findByDataPagamento(
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			@PathVariable LocalDate dataInicial,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			@PathVariable LocalDate dataFinal){
+		return despesaRepository.findAllByDataPagamentoBetween(dataInicial, dataFinal);
+	}
+
+	@GetMapping("/datapagamentoesperado/{dataInicial}/{dataFinal}")
+	List<Despesa> findByDataPagamentoEsperado(
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			@PathVariable LocalDate dataInicial,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			@PathVariable LocalDate dataFinal){
+		return despesaRepository.findAllByDataPagamentoEsperadoBetween(dataInicial, dataFinal);
 	}
 }

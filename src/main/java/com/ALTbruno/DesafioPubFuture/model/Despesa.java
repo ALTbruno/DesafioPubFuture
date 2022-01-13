@@ -3,9 +3,8 @@ package com.ALTbruno.DesafioPubFuture.model;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_DESPESAS")
@@ -20,12 +19,10 @@ public class Despesa {
 	private BigDecimal valorDespesa;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	private Date dataPagamento;
+	private LocalDate dataPagamento;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	private Date dataPagamentoEsperado;
+	private LocalDate dataPagamentoEsperado;
 
 	@NotNull
 	@Enumerated(value = EnumType.STRING)
@@ -52,19 +49,19 @@ public class Despesa {
 		this.valorDespesa = valorDespesa;
 	}
 
-	public Date getDataPagamento() {
+	public LocalDate getDataPagamento() {
 		return dataPagamento;
 	}
 
-	public void setDataPagamento(Date dataPagamento) {
+	public void setDataPagamento(LocalDate dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}
 
-	public Date getDataPagamentoEsperado() {
+	public LocalDate getDataPagamentoEsperado() {
 		return dataPagamentoEsperado;
 	}
 
-	public void setDataPagamentoEsperado(Date dataPagamentoEsperado) {
+	public void setDataPagamentoEsperado(LocalDate dataPagamentoEsperado) {
 		this.dataPagamentoEsperado = dataPagamentoEsperado;
 	}
 
