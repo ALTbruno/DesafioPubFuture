@@ -23,27 +23,35 @@ public class ContaController {
 	}
 
 	@PostMapping
-	private ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
+	public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(contaRepository.save(conta));
 	}
 
 	@PutMapping("/{idConta}")
-	private ResponseEntity<Conta> editarConta(@PathVariable Integer idConta, @RequestBody Conta conta) {
-		return ResponseEntity.ok(contaRepository.save(conta));
+	public ResponseEntity<Conta> editarConta(@PathVariable Integer idConta, @RequestBody Conta conta) {
+		ResponseEntity<Conta> response;
+		if (contaRepository.findById(idConta).isPresent()) {
+			conta.setIdConta(idConta);
+			response = ResponseEntity.ok(contaRepository.save(conta));
+		} else {
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+
+		return response;
 	}
 
 	@GetMapping("/{idConta}")
-	private  ResponseEntity<Optional<Conta>> listarContaPeloId(@PathVariable Integer idConta) {
+	public   ResponseEntity<Optional<Conta>> buscarContaPeloId(@PathVariable Integer idConta) {
 		return ResponseEntity.ok(contaRepository.findById(idConta));
 	}
 
 	@GetMapping
-	private ResponseEntity<List<Conta>> listarContas() {
+	public ResponseEntity<List<Conta>> listarContas() {
 		return ResponseEntity.ok(contaRepository.findAll());
 	}
 
 	@DeleteMapping("/{idConta}")
-	private void removerContaPeloId(@PathVariable Integer idConta) {
+	public void removerContaPeloId(@PathVariable Integer idConta) {
 		contaRepository.deleteById(idConta);
 	}
 }

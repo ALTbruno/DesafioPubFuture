@@ -1,6 +1,5 @@
 package com.ALTbruno.DesafioPubFuture.repository;
 
-import com.ALTbruno.DesafioPubFuture.model.Conta;
 import com.ALTbruno.DesafioPubFuture.model.Receita;
 import com.ALTbruno.DesafioPubFuture.model.TipoReceita;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,9 +17,6 @@ public interface ReceitaRepository extends JpaRepository<Receita, Integer> {
 
 	@Query("SELECT SUM(r.valorReceita) FROM Receita r")
 	BigDecimal totalReceitas();
-
-//	@Query("SELECT SUM(r.valorReceita) FROM Receita r WHERE r.idConta = ?1")
-//	BigDecimal totalReceitasPorConta(Integer idConta);
 
 	@Query(value = "SELECT SUM(valor_receita) FROM tb_receitas WHERE id_conta = ?1", nativeQuery = true)
 	BigDecimal getTotalReceitasPorConta(Integer idConta);

@@ -24,13 +24,13 @@ public class ReceitaController {
 	private ContaRepository contaRepository;
 
 	@Autowired
-	ReceitaController(ReceitaRepository receitaRepository, ContaRepository contaRepository) {
+	private ReceitaController(ReceitaRepository receitaRepository, ContaRepository contaRepository) {
 		this.receitaRepository = receitaRepository;
 		this.contaRepository = contaRepository;
 	}
 
 	@PostMapping
-	private ResponseEntity<Receita> adicionarReceita(@RequestBody Receita receita) {
+	public ResponseEntity<Receita> adicionarReceita(@RequestBody Receita receita) {
 
 		ResponseEntity<Receita> response;
 		if(contaRepository.findById(receita.getConta().getIdConta()).isPresent()){
@@ -43,54 +43,41 @@ public class ReceitaController {
 	}
 
 	@PutMapping("/{idReceita}")
-	private ResponseEntity<Receita> editarReceita(@PathVariable Integer idReceita, @RequestBody Receita receita) {
+	public ResponseEntity<Receita> editarReceita(@PathVariable Integer idReceita, @RequestBody Receita receita) {
 
-		receita.setIdReceita(idReceita);
-
-		if(receita.getValorReceita() == null){
-			receita.setValorReceita(receitaRepository.findById(idReceita).get().getValorReceita());
-		}
-		if(receita.getDataRecebimento() == null){
-			receita.setDataRecebimento(receitaRepository.findById(idReceita).get().getDataRecebimento());
-		}
-		if(receita.getDataRecebimentoEsperado() == null){
-			receita.setDataRecebimentoEsperado(receitaRepository.findById(idReceita).get().getDataRecebimentoEsperado());
-		}
-		if(receita.getTipoReceita() == null){
-			receita.setTipoReceita(receitaRepository.findById(idReceita).get().getTipoReceita());
-		}
-		if(receita.getDescricaoReceita() == null){
-			receita.setDescricaoReceita(receitaRepository.findById(idReceita).get().getDescricaoReceita());
-		}
-		if(receita.getConta() == null){
-			receita.setConta(receitaRepository.findById(idReceita).get().getConta());
+		ResponseEntity<Receita> response;
+		if (receitaRepository.findById(idReceita).isPresent()) {
+			receita.setIdReceita(idReceita);
+			response = ResponseEntity.ok(receitaRepository.save(receita));
+		} else {
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 
-		return ResponseEntity.ok(receitaRepository.save(receita));
+		return response;
 	}
 
 	@GetMapping
-	private ResponseEntity<List<Receita>> listarReceitas() {
+	public ResponseEntity<List<Receita>> listarReceitas() {
 		return ResponseEntity.ok(receitaRepository.findAll());
 	}
 
 	@GetMapping("/{idReceita}")
-	private  ResponseEntity<Optional<Receita>> listarReceitaPeloId(@PathVariable Integer idReceita) {
+	public   ResponseEntity<Optional<Receita>> buscarReceitaPeloId(@PathVariable Integer idReceita) {
 		return ResponseEntity.ok(receitaRepository.findById(idReceita));
 	}
 
 	@GetMapping("/tipo/{tipoReceita}")
-	private ResponseEntity<List<Receita>> listarReceitasPeloTipo(@PathVariable TipoReceita tipoReceita) {
+	public ResponseEntity<List<Receita>> listarReceitasPeloTipo(@PathVariable TipoReceita tipoReceita) {
 		return ResponseEntity.ok(receitaRepository.findByTipoReceita(tipoReceita));
 	}
 
 	@DeleteMapping("/{idReceita}")
-	private void removerReceitaPeloId(@PathVariable Integer idReceita) {
+	public void removerReceitaPeloId(@PathVariable Integer idReceita) {
 		receitaRepository.deleteById(idReceita);
 	}
 
 	@GetMapping("total")
-	private BigDecimal getTotalReceitas() {
+	public BigDecimal totalReceitas() {
 		return receitaRepository.totalReceitas();
 	}
 
@@ -100,8 +87,8 @@ public class ReceitaController {
 	}
 
 	//	@GetMapping("/datainicial={dataInicial}&datafinal={dataFinal}")
-	@GetMapping("/datarecebimento/{dataInicial}/{dataFinal}")
-	List<Receita> findByDataRecebimento(
+	@GetMapping("/data-recebimento/{dataInicial}/{dataFinal}")
+	public List<Receita> findByDataRecebimento(
 				@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 				@PathVariable LocalDate dataInicial,
 				@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -109,8 +96,8 @@ public class ReceitaController {
 			return receitaRepository.findAllByDataRecebimentoBetween(dataInicial, dataFinal);
 		}
 
-	@GetMapping("/datarecebimentoesperado/{dataInicial}/{dataFinal}")
-	List<Receita> findByDataRecebimentoEsperado(
+	@GetMapping("/data-recebimento-esperado/{dataInicial}/{dataFinal}")
+	public List<Receita> findByDataRecebimentoEsperado(
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			@PathVariable LocalDate dataInicial,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

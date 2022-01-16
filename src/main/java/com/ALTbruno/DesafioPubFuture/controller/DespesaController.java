@@ -25,80 +25,70 @@ public class DespesaController {
 	private ContaRepository contaRepository;
 
 	@Autowired
-	DespesaController(DespesaRepository despesaRepository, ContaRepository contaRepository) {
+	private DespesaController(DespesaRepository despesaRepository, ContaRepository contaRepository) {
 		this.despesaRepository = despesaRepository;
 		this.contaRepository = contaRepository;
 	}
 
 	@PostMapping
-	private ResponseEntity<Despesa> adicionarDespesa(@RequestBody Despesa despesa) {
+	public ResponseEntity<Despesa> adicionarDespesa(@RequestBody Despesa despesa) {
 
 		ResponseEntity<Despesa> response;
 		if(contaRepository.findById(despesa.getConta().getIdConta()).isPresent()){
 			response = ResponseEntity.ok(despesaRepository.save(despesa));
 		} else {
-			response =ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 
 		return response;
 	}
 
 	@PutMapping("/{idDespesa}")
-	private ResponseEntity<Despesa> editarDespesa(@PathVariable Integer idDespesa, @RequestBody Despesa despesa) {
+	public ResponseEntity<Despesa> editarDespesa(@PathVariable Integer idDespesa, @RequestBody Despesa despesa) {
 
-		despesa.setIdDespesa(idDespesa);
-
-		if(despesa.getValorDespesa() == null){
-			despesa.setValorDespesa(despesaRepository.findById(idDespesa).get().getValorDespesa());
-		}
-		if(despesa.getDataPagamento() == null){
-			despesa.setDataPagamento(despesaRepository.findById(idDespesa).get().getDataPagamento());
-		}
-		if(despesa.getDataPagamentoEsperado() == null){
-			despesa.setDataPagamentoEsperado(despesaRepository.findById(idDespesa).get().getDataPagamentoEsperado());
-		}
-		if(despesa.getTipoDespesa() == null){
-			despesa.setTipoDespesa(despesaRepository.findById(idDespesa).get().getTipoDespesa());
-		}
-		if(despesa.getConta() == null){
-			despesa.setConta(despesaRepository.findById(idDespesa).get().getConta());
+		ResponseEntity<Despesa> response;
+		if (despesaRepository.findById(idDespesa).isPresent()) {
+			despesa.setIdDespesa(idDespesa);
+			response = ResponseEntity.ok(despesaRepository.save(despesa));
+		} else {
+			response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 
-		return ResponseEntity.ok(despesaRepository.save(despesa));
+		return response;
 	}
 
 	@GetMapping
-	private ResponseEntity<List<Despesa>> listarDespesas() {
+	public ResponseEntity<List<Despesa>> listarDespesas() {
 		return ResponseEntity.ok(despesaRepository.findAll());
 	}
 
 	@GetMapping("/{idDespesa}")
-	private  ResponseEntity<Optional<Despesa>> listarDespesaPeloId(@PathVariable Integer idDespesa) {
+	public   ResponseEntity<Optional<Despesa>> listarDespesaPeloId(@PathVariable Integer idDespesa) {
 		return ResponseEntity.ok(despesaRepository.findById(idDespesa));
 	}
 
 	@GetMapping("/tipo/{tipoDespesa}")
-	private ResponseEntity<List<Despesa>> listarDespesasPeloTipo(@PathVariable TipoDespesa tipoDespesa) {
+	public ResponseEntity<List<Despesa>> listarDespesasPeloTipo(@PathVariable TipoDespesa tipoDespesa) {
 		return ResponseEntity.ok(despesaRepository.findByTipoDespesa(tipoDespesa));
 	}
 
 	@DeleteMapping("/{idDespesa}")
-	private void removerDespesaPeloId(@PathVariable Integer idDespesa) {
+	public void removerDespesaPeloId(@PathVariable Integer idDespesa) {
 		despesaRepository.deleteById(idDespesa);
 	}
 
 	@GetMapping("total")
-	private BigDecimal getTotalDespesas() {
+	public BigDecimal totalDespesas() {
 		return despesaRepository.totalDespesas();
 	}
 
 	@GetMapping("/conta/{idConta}/total")
-	private BigDecimal totalDespesasPorConta(@PathVariable Integer idConta) {
+	public BigDecimal totalDespesasPorConta(@PathVariable Integer idConta) {
 		return despesaRepository.getTotalDespesasPorConta(idConta);
 	}
 
-	@GetMapping("/datapagamento/{dataInicial}/{dataFinal}")
-	List<Despesa> findByDataPagamento(
+	@GetMapping("/data-pagamento/{dataInicial}/{dataFinal}")
+	public List<Despesa> findByDataPagamento(
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			@PathVariable LocalDate dataInicial,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -106,8 +96,8 @@ public class DespesaController {
 		return despesaRepository.findAllByDataPagamentoBetween(dataInicial, dataFinal);
 	}
 
-	@GetMapping("/datapagamentoesperado/{dataInicial}/{dataFinal}")
-	List<Despesa> findByDataPagamentoEsperado(
+	@GetMapping("/data-pagamento-esperado/{dataInicial}/{dataFinal}")
+	public List<Despesa> findByDataPagamentoEsperado(
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			@PathVariable LocalDate dataInicial,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
